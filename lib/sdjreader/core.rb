@@ -7,21 +7,23 @@ module Sdjreader
     def initialize
       @config = Hash.new
       @index = IndexReader.instance
-      @parser = OptionParser.new("/.J Reader - #{VERSION}")
+      @parser = OptionParser.new(HEADER)
       @parser.on("-h", "--help"){ @config[:help] = true }
       @parser.on("-v", "--version"){ @config[:version] = true }
     end
 
     def main
-      if @config[:null]
+      @config
+      if @config[:noargs]
         @index.page
       end
     end
 
     def optparse(*args)
-      @config[:noargs] = true && return if args.size == 0
+      (@config[:noargs] = true) && return if args.size == 0
       @parser.parse! args
       @config[:rest] = args
+      @config
     end
 
     def setup
@@ -29,7 +31,7 @@ module Sdjreader
     end
 
     def pre(*args)
-      config = self.optparse(*args)
+      self.optparse(*args)
       self.help if @config[:help]
       self.version if @config[:version]
     end
@@ -38,5 +40,10 @@ module Sdjreader
       puts @parser
       exit 1
     end
+
+    def version
+      puts HEADER
+    end
+
   end
 end

@@ -2,7 +2,7 @@ require 'sdjreader/version'
 require 'nokogiri'
 require 'mechanize'
 require 'uri'
-require 'open-uri'
+
 
 module Sdjreader
   SITE_URI = 'http://slashdot.jp/'
