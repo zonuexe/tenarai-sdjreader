@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 
 dir = File.dirname(__FILE__)
-[".", "./sdjreader"].each{ |d|
-  path = File.expand_path(File.join(dir, "../lib/", d))
-  $:.unshift(path) unless $:.include? path
-}
+path = File.expand_path(File.join(dir, "../lib/"))
+$:.unshift(path) unless $:.include? path
 
 
 require 'sdjreader'
