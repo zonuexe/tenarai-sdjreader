@@ -2,6 +2,7 @@ require 'optparse'
 require 'singleton'
 
 module Sdjreader
+  RE_ARTICLE_URI = /(https?:\/\/(?:.*?)\.slashdot.jp\/story\/\d{2}\/\d{2}\/\d{2}\/\d*\/)(.*)?$/
   class Core
     include Singleton
     def initialize
@@ -15,7 +16,7 @@ module Sdjreader
     def main
       @config
       if @config[:noargs]
-        @index.page
+        @index.put
       end
     end
 
@@ -39,10 +40,6 @@ module Sdjreader
     def help
       puts @parser
       exit 1
-    end
-
-    def version
-      puts HEADER
     end
 
   end
